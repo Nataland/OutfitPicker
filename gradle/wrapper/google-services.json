@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "756739932343",
+    "firebase_url": "https://outifitpicker.firebaseio.com",
+    "project_id": "outifitpicker",
+    "storage_bucket": "outifitpicker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756739932343:android:ee2af561ca586a8c",
+        "android_client_info": {
+          "package_name": "hackthevalley.outfitpicker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756739932343-b6ti1gnfb0pdau57pfkg89erudodk824.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7rLxWwUnGwGIAx3ITAW3zWUp33bNt_80"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
