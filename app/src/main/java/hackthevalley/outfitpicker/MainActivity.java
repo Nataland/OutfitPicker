@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
 
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        ButterKnife.bind( this );
     }
 
     private void loadFragment(Fragment fragment) {
