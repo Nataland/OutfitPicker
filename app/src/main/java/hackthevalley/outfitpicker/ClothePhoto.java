@@ -50,7 +50,7 @@ public class ClothePhoto implements Parcelable {
         mTitle = title;
     }
 
-    public static  ClothePhoto[] getSpacePhotos() {
+    public static ClothePhoto[] getSpacePhotos() {
 
         return new ClothePhoto[]{
                 new ClothePhoto("http://i.imgur.com/zuG2bGQ.jpg", "Galaxy"),
