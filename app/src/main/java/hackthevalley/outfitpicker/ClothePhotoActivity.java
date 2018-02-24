@@ -62,18 +62,4 @@ public class ClothePhotoActivity extends AppCompatActivity {
                 .into(mImageView);
 
     }
-
-   /* private SimpleTarget target = new SimpleTarget<Bitmap>() {
-        @Override
-        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-           onPalette(Palette.from(bitmap).generate());
-           mImageView.setImageBitmap(bitmap);
-        }
-        public void onPalette(Palette palette) {
-            if (null != palette) {
-                ViewGroup parent = (ViewGroup) mImageView.getParent().getParent();
-                parent.setBackgroundColor(palette.getDarkVibrantColor(Color.GRAY));
-            }
-        }
-    };*/
 }
