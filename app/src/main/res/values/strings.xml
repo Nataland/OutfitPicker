@@ -3,4 +3,18 @@
     <string name="title_closet">Closet</string>
     <string name="title_outfit">Outfit</string>
     <string name="title_settings">Settings</string>
+
+    <!-- Select image activity -->
+    <string name="select_an_image">Select an Image</string>
+    <string name="take_photo">Take a Photo</string>
+    <string name="select_image_in_album">From Gallery</string>
+
+    <!-- Please refer to https://www.projectoxford.ai/ to get your subscription key -->
+    <!-- If you have one subscription key, you can add it here to use the service -->
+    <string name="subscription_key">e7a2369b290c419fbc44a9c5eff066a9</string>
+    <string name="subscription_apiroot">https://eastus.api.cognitive.microsoft.com/vision/v1.0</string>
+
+    <string name="title_activity_analyze">Analyze Image</string>
+
+
 </resources>
