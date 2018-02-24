@@ -158,7 +158,7 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
         } else if (view == buttonUpload) {
             uploadFile();
         } else if (view == textViewShow) {
-            //showUploads();
+            showUploads();
         }
     }
 }
