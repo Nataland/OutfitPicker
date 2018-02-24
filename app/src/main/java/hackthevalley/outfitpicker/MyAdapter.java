@@ -41,9 +41,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Upload upload = uploads.get(position);
-
-        holder.textViewName.setText(upload.getName());
-
         Glide.with(context).load(upload.getUrl()).into(holder.imageView);
     }
 
@@ -54,13 +51,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textViewName;
         public ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
-            textViewName = (TextView) itemView.findViewById(R.id.textViewName);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
         }
     }
