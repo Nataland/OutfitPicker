@@ -20,8 +20,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".GalleryActivity"></activity>
-
         <activity android:name=".ClothePhotoActivity"></activity>
 
     </application>
