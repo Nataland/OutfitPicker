@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     //list to hold all the uploaded images
     private List<Upload> uploads;
 
+    //list to hold all names
+    private ArrayList<String> names;
+
     //list to hold all urls
     private ArrayList<String> urls;
 
@@ -48,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Bundle bundle = new Bundle();
-            bundle.putStringArrayList("array", urls);
+            bundle.putStringArrayList("url", urls);
+            bundle.putStringArrayList("name", names);
             switch (item.getItemId()) {
                 case R.id.navigation_closet:
                     closetFragment.setArguments(bundle);
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         uploads = new ArrayList<>();
         urls = new ArrayList<>();
+        names = new ArrayList<>();
 
         //displaying progress dialog while fetching images
         progressDialog.setMessage("Please wait...");
@@ -108,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for (Upload upload : uploads) {
                     urls.add(upload.getUrl());
+                    names.add(upload.getName());
                 }
             }
 
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("array", urls);
+        bundle.putStringArrayList("url", urls);
         switch (navigation.getSelectedItemId()) {
             case R.id.navigation_closet:
                 closetFragment.setArguments(bundle);

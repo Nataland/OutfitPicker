@@ -11,7 +11,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,14 +75,14 @@ public class ClosetFragment extends Fragment {
         takePhotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), FirebaseUploadActivity.class);
-//                startActivity(intent);
-                http();
+                Intent intent = new Intent(getActivity(), FirebaseUploadActivity.class);
+                startActivity(intent);
+//                http();
             }
         });
         progressDialog = new ProgressDialog(getContext());
 
-        uploads = getArguments().getStringArrayList("array");
+        uploads = getArguments().getStringArrayList("url");
         adapter = new MyAdapter(getContext(), uploads);
 
         //adding adapter to recyclerview
@@ -93,8 +92,8 @@ public class ClosetFragment extends Fragment {
 
     @OnClick(R.id.take_photo_fab)
     void onShowClick() {
-        http();
-//        takePhoto();
+        //http();
+        takePhoto();
     }
 
     public void http() {

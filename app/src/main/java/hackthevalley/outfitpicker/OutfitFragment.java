@@ -1,28 +1,19 @@
 package hackthevalley.outfitpicker;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,17 +31,7 @@ public class OutfitFragment extends Fragment {
 
     List<Upload> uploads;
     ArrayList<String> urls;
-    //recyclerview object
-    //progress dialog
-    private ProgressDialog progressDialog;
-
-    private RecyclerView recyclerView;
-
-    //adapter object
-    private RecyclerView.Adapter adapter;
-
-    //database reference
-    private DatabaseReference mDatabase;
+    ArrayList<String> names;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +39,8 @@ public class OutfitFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mContext = getContext();
-        urls = getArguments().getStringArrayList("array");
+        urls = getArguments().getStringArrayList("url");
+        names = getArguments().getStringArrayList("name");
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
                 .setSwipeDecor(new SwipeDecor()
@@ -69,8 +51,8 @@ public class OutfitFragment extends Fragment {
 
         //generate al the outfits here!!
         //for now, hardcoded data:
-        List<ArrayList<String>> deck =Arrays.asList(urls, urls, urls, urls, urls, urls);
-        for (ArrayList<String> images: deck) {
+        List<ArrayList<String>> deck = generateDeck();
+        for (ArrayList<String> images : deck) {
             mSwipeView.addView(new TinderCard(mContext, images, mSwipeView));
         }
         return view;
@@ -84,5 +66,74 @@ public class OutfitFragment extends Fragment {
     @OnClick(R.id.acceptBtn)
     public void onAcceptClick(View v) {
         mSwipeView.doSwipe(true);
+    }
+
+    public List<ArrayList<String>> generateDeck() {
+        List<ArrayList<String>> deck = new ArrayList<>();
+        List<String> shirts = new ArrayList<>();
+        List<String> trousers = new ArrayList<>();
+        List<String> shoes = new ArrayList<>();
+        List<String> coats = new ArrayList<>();
+        List<String> accessories = new ArrayList<>();
+        for (int i = 0; i < urls.size(); ++i) {
+            switch (names.get(i)) {
+                case "shirt":
+                    shirts.add(urls.get(i));
+                    break;
+                case "trouser":
+                    trousers.add(urls.get(i));
+                    break;
+                case "shoe":
+                    shoes.add(urls.get(i));
+                    break;
+                case "coat":
+                    coats.add(urls.get(i));
+                    break;
+                case "accessory":
+                    accessories.add(urls.get(i));
+                    break;
+            }
+        }
+        for (String top : shirts) {
+            for (String bottom : trousers) {
+                ArrayList<String> topAndBottom = new ArrayList<>();
+                topAndBottom.add(top);
+                topAndBottom.add(bottom);
+                deck.add(topAndBottom);
+            }
+        }
+
+        if (accessories.size() > 0) {
+            for (int j = 0; j < deck.size(); j++) {
+                if (j % 2 == 0) {
+                    int randomNum = ThreadLocalRandom.current().nextInt(0, accessories.size());
+                    deck.get(j).add(accessories.get(randomNum));
+                }
+            }
+        }
+
+        if (coats.size() > 0) {
+            for (int j = 0; j < deck.size(); j++) {
+                if (j != 0 && j % 3 == 0) {
+                    continue;
+                } else {
+                    int randomNum = ThreadLocalRandom.current().nextInt(0, coats.size());
+                    deck.get(j).add(coats.get(randomNum));
+                }
+            }
+        }
+
+        if (shoes.size() > 0) {
+            for (int j = 0; j < deck.size(); j++) {
+                if (j != 0 && j % 5 == 0) {
+                    continue;
+                } else {
+                    int randomNum = ThreadLocalRandom.current().nextInt(0, shoes.size());
+                    deck.get(j).add(shoes.get(randomNum));
+                }
+            }
+        }
+
+        return deck;
     }
 }
