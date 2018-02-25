@@ -30,6 +30,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     //database reference
     private DatabaseReference mDatabase;
+    public static String TAG_KEY = "tagKey";
+    public static String URL_KEY = "urlKey";
 
     public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener{
         @Override
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Upload> uploads;
 
     //list to hold all names
-    private ArrayList<String> names;
+    private ArrayList<String> tags;
 
     //list to hold all urls
     private ArrayList<String> urls;
@@ -65,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Bundle bundle = new Bundle();
-            bundle.putStringArrayList("url", urls);
-            bundle.putStringArrayList("name", names);
+            bundle.putStringArrayList(URL_KEY, urls);
+            bundle.putStringArrayList(TAG_KEY, tags);
             switch (item.getItemId()) {
                 case R.id.navigation_closet:
                     closetFragment.setArguments(bundle);
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         uploads = new ArrayList<>();
         urls = new ArrayList<>();
-        names = new ArrayList<>();
+        tags = new ArrayList<>();
 
         //displaying progress dialog while fetching images
         progressDialog.setMessage("Please wait...");
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for (Upload upload : uploads) {
                     urls.add(upload.getUrl());
-                    names.add(upload.getName());
+                    tags.add(upload.getTags());
                 }
             }
 
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("url", urls);
+        bundle.putStringArrayList(URL_KEY, urls);
         switch (navigation.getSelectedItemId()) {
             case R.id.navigation_closet:
                 closetFragment.setArguments(bundle);

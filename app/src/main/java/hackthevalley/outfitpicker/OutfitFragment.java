@@ -20,6 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static hackthevalley.outfitpicker.MainActivity.TAG_KEY;
+import static hackthevalley.outfitpicker.MainActivity.URL_KEY;
+
 /**
  * Created by natalie on 2018-02-24.
  */
@@ -32,7 +35,7 @@ public class OutfitFragment extends Fragment {
 
     List<Upload> uploads;
     ArrayList<String> urls;
-    ArrayList<String> names;
+    ArrayList<String> tags;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,8 +43,8 @@ public class OutfitFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mContext = getContext();
-        urls = getArguments().getStringArrayList("url");
-        names = getArguments().getStringArrayList("name");
+        urls = getArguments().getStringArrayList(URL_KEY);
+        tags = getArguments().getStringArrayList(TAG_KEY);
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
                 .setSwipeDecor(new SwipeDecor()
@@ -77,7 +80,7 @@ public class OutfitFragment extends Fragment {
         List<String> coats = new ArrayList<>();
         List<String> accessories = new ArrayList<>();
         for (int i = 0; i < urls.size(); ++i) {
-            switch (names.get(i)) {
+            switch (extractTag(tags.get(i))) {
                 case "shirt":
                     shirts.add(urls.get(i));
                     break;
@@ -137,5 +140,31 @@ public class OutfitFragment extends Fragment {
 
         Collections.shuffle(deck);
         return deck;
+    }
+
+    private String extractTag(String bunchOfTags) {
+        String tag = "unknown";
+
+        String[] tags = bunchOfTags.split(",");
+        for (String mightBeThisTag : tags) {
+            switch (mightBeThisTag) {
+                case "shirt":
+                    tag = "shirt";
+                    break;
+                case "trouser":
+                    tag = "trouser";
+                    break;
+                case "shoe":
+                    tag = "shoe";
+                    break;
+                case "coat":
+                    tag = "coat";
+                    break;
+                case "accessory":
+                    tag = "accessory";
+                    break;
+            }
+        }
+        return tag;
     }
 }
