@@ -185,7 +185,7 @@ public class ClosetFragment extends Fragment {
     }
 
     private void configureSpinnerUI() {
-        String[] selections = {"Show All", "Shirt", "Dresses", "Trouser", "Coat", "Footwear", "Accessories"};
+        String[] selections = {"Show All", "Shirt", "Dress", "Trouser", "Coat", "Footwear", "Accessories"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_dropdown_menu, selections) {
 
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
