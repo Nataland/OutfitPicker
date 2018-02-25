@@ -3,6 +3,7 @@
     package="hackthevalley.outfitpicker">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -20,10 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ClothePhotoActivity" />
-
+        <activity android:name=".FirebaseUploadActivity" />
+        <activity android:name=".ShowImagesActivity"></activity>
     </application>
-
 
 </manifest>

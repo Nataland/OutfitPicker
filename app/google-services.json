@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "530211209022",
+    "firebase_url": "https://outfitpicker-d0d62.firebaseio.com",
+    "project_id": "outfitpicker-d0d62",
+    "storage_bucket": "outfitpicker-d0d62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530211209022:android:ee2af561ca586a8c",
+        "android_client_info": {
+          "package_name": "hackthevalley.outfitpicker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530211209022-7cmu9lif83l7umfh2kt79nn6c09anell.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hackthevalley.outfitpicker",
+            "certificate_hash": "2934e536bf71db1c0c8afc017e3ec6f636673c54"
+          }
+        },
+        {
+          "client_id": "530211209022-17lod1ckuk0rnn6i28c48klpp1dhjjd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRSjBlOhceJA5tUCJ8xBZ49-CpcapArrI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530211209022-17lod1ckuk0rnn6i28c48klpp1dhjjd6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
