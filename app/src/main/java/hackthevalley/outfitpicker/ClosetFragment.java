@@ -17,17 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,9 +49,12 @@ public class ClosetFragment extends Fragment {
     private ProgressDialog progressDialog;
 
     //list to hold all the uploaded images
-    private List<Upload> uploads;
+    private ArrayList<String> uploads;
 
     private FloatingActionButton takePhotoBtn;
+    private static final int TAKE_PICTURE = 1;
+    private Uri imageUri;
+
 
     @BindView(R.id.imageCamera)
     ImageView imageCamera;
@@ -84,57 +80,16 @@ public class ClosetFragment extends Fragment {
         });
         progressDialog = new ProgressDialog(getContext());
 
-        uploads = new ArrayList<>();
+        uploads = getArguments().getStringArrayList("array");
+        adapter = new MyAdapter(getContext(), uploads);
 
-        //displaying progress dialog while fetching images
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
-        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-
-        //adding an event listener to fetch values
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                //dismissing the progress dialog
-                progressDialog.dismiss();
-
-                //iterating through all the values in database
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Upload upload = postSnapshot.getValue(Upload.class);
-                    uploads.add(upload);
-                }
-
-                Collections.sort(uploads, new Comparator<Upload>() {
-                    @Override
-                    public int compare(final Upload object1, final Upload object2) {
-                        return object1.getName().compareTo(object2.getName());
-                    }
-                });
-
-                //creating adapter
-                adapter = new MyAdapter(getContext(), uploads);
-
-                //adding adapter to recyclerview
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                progressDialog.dismiss();
-            }
-        });
-
-
+        //adding adapter to recyclerview
+        recyclerView.setAdapter(adapter);
         return view;
-
     }
 
-
-    private static final int TAKE_PICTURE = 1;
-    private Uri imageUri;
-
     @OnClick(R.id.take_photo_fab)
-    void onShowClick(){
+    void onShowClick() {
         http();
 //        takePhoto();
     }
@@ -165,7 +120,7 @@ public class ClosetFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(final Call call, IOException e){
+            public void onFailure(final Call call, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {
 
                     @Override
@@ -176,6 +131,7 @@ public class ClosetFragment extends Fragment {
             }
         });
     }
+
     static final int REQUEST_IMAGE_CAPTURE = 100;
 
     public void takePhoto() {
@@ -223,8 +179,8 @@ public class ClosetFragment extends Fragment {
 //                    Log.e("Camera", e.toString());
 //                }
 //            }
-        }
     }
+}
 
 //    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
 //        ByteArrayOutputStream baos = new ByteArrayOutputStream();

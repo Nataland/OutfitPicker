@@ -1,31 +1,26 @@
 package hackthevalley.outfitpicker;
 
-/**
- * Created by Thao on 2/24/18.
- */
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Created by Belal on 2/23/2017.
+ * Created by Thao on 2/24/18.
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private Context context;
-    private List<Upload> uploads;
+    private ArrayList<String> uploads;
 
-    public MyAdapter(Context context, List<Upload> uploads) {
+    public MyAdapter(Context context, ArrayList<String> uploads) {
         this.uploads = uploads;
         this.context = context;
     }
@@ -40,8 +35,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Upload upload = uploads.get(position);
-        Glide.with(context).load(upload.getUrl()).into(holder.imageView);
+        String upload = uploads.get(position);
+        Glide.with(context).load(upload).into(holder.imageView);
     }
 
     @Override

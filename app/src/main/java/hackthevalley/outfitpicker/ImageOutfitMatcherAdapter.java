@@ -7,15 +7,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,17 +17,15 @@ import java.util.List;
 
 public class ImageOutfitMatcherAdapter extends BaseAdapter {
     private Context mContext;
-    List<Upload> uploads;
     List<String> urls;
-    private DatabaseReference mDatabase;
 
-    public ImageOutfitMatcherAdapter(Context c, List<String> outfitImages) {
+    public ImageOutfitMatcherAdapter(Context c, ArrayList<String> outfitImages) {
         mContext = c;
         urls = outfitImages;
     }
 
     public int getCount() {
-        return uploads.size();
+        return urls.size();
     }
 
     public Object getItem(int position) {

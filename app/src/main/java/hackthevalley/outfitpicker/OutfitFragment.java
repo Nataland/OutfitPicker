@@ -1,8 +1,10 @@
 package hackthevalley.outfitpicker;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -36,7 +39,18 @@ public class OutfitFragment extends Fragment {
     SwipePlaceHolderView mSwipeView;
 
     List<Upload> uploads;
-    List<String> urls;
+    ArrayList<String> urls;
+    //recyclerview object
+    //progress dialog
+    private ProgressDialog progressDialog;
+
+    private RecyclerView recyclerView;
+
+    //adapter object
+    private RecyclerView.Adapter adapter;
+
+    //database reference
+    private DatabaseReference mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +58,7 @@ public class OutfitFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mContext = getContext();
-
+        urls = getArguments().getStringArrayList("array");
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
                 .setSwipeDecor(new SwipeDecor()
@@ -53,40 +67,12 @@ public class OutfitFragment extends Fragment {
                         .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
-
-        uploads = new ArrayList<>();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                //iterating through all the values in database
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Upload upload = postSnapshot.getValue(Upload.class);
-                    uploads.add(upload);
-                }
-
-                Collections.sort(uploads, new Comparator<Upload>() {
-                    @Override
-                    public int compare(final Upload object1, final Upload object2) {
-                        return object1.getName().compareTo(object2.getName());
-                    }
-                });
-
-                urls = new ArrayList<>();
-                for (Upload upload : uploads) {
-                    urls.add(upload.getUrl());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Todo:
-            }
-        });
-
-        mSwipeView.addView(new TinderCard(mContext, urls, mSwipeView));
+        //generate al the outfits here!!
+        //for now, hardcoded data:
+        List<ArrayList<String>> deck =Arrays.asList(urls, urls, urls, urls, urls, urls);
+        for (ArrayList<String> images: deck) {
+            mSwipeView.addView(new TinderCard(mContext, images, mSwipeView));
+        }
         return view;
     }
 
