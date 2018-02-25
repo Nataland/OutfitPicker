@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,10 +26,22 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
+
 public class MainActivity extends AppCompatActivity {
     //database reference
     private DatabaseReference mDatabase;
 
+    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener{
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    };
     //progress dialog
     private ProgressDialog progressDialog;
 

@@ -4,6 +4,16 @@
     <string name="title_outfit">Outfit</string>
     <string name="title_settings">Settings</string>
 
+    <string-array name="name_array">
+        <item>--Choose your item--</item>
+        <item>Shirt</item>
+        <item>Dress</item>
+        <item>Trouser</item>
+        <item>Coat</item>
+        <item>Shoe</item>
+        <item>Accessory</item>
+    </string-array>
+
     <!-- Select image activity -->
     <string name="select_an_image">Select an Image</string>
     <string name="take_photo">Take a Photo</string>
