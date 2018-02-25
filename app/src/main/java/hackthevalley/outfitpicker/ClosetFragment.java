@@ -30,11 +30,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Created by natalie on 2018-02-24.
@@ -80,38 +82,55 @@ public class ClosetFragment extends Fragment {
 
     public void http() {
         OkHttpClient client = new OkHttpClient();
-        System.out.println("Fany!!!");
+
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{\"url\":\"https://ufpro.com/media/uploads/public/product/-striker_xt_gen2_combat_pants_brown_grey_2.jpg\"}");
+        RequestBody body = RequestBody.create(mediaType, "{\"url\":\"https://images.menswearhouse.com/is/image/TMW/MW40_6L47_01_EGARA_NAVY_BLUE_MAIN?$40Zoom$ \"}");
         Request request = new Request.Builder()
-                .url("https://eastus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags&details=Celebrities&language=en")
-                .post(body).addHeader("Content-Type", "application/json")
-                .addHeader("Ocp-Apim-Subscription-Key", "e7a2369b290c419fbc44a9c5eff066a9")
+                .url("https://eastus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags&language=en")
+                .post(body)
+                .addHeader("Ocp-Apim-Subscription-Key", "4b9e55ceddcb464dbdca03f156d126ff")
+                .addHeader("Content-Type", "application/json")
                 .addHeader("Cache-Control", "no-cache")
-                .addHeader("Postman-Token", "d0ad4877-d999-4cbe-8987-c4b4b91994ca")
+                .addHeader("Postman-Token", "8adc40e0-3c73-4b91-a203-b0a1947b04c2")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onResponse(final Call call, final Response response) throws IOException {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(response.toString());
-                        Log.d("target", response.toString());
-                    }
-                });
+//            @Override
+//            public void onResponse(final Call call, final Response response) throws IOException {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        String Res = response.body().string();
+//                        Log.d("target", Res);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFailure(final Call call, IOException e){
+//                getActivity().runOnUiThread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        // Error Handle here
+//                    }
+//                });
+//            }
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public void onFailure(final Call call, IOException e){
-                getActivity().runOnUiThread(new Runnable() {
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-                    @Override
-                    public void run() {
-                        // Error Handle here
+                    Headers responseHeaders = response.headers();
+                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                        System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
                     }
-                });
+
+                    System.out.println(responseBody.string());
+                }
             }
         });
     }
