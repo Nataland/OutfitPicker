@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -108,18 +109,46 @@ public class ClosetFragment extends Fragment {
         //displaying progress dialog while fetching images
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
+        final String[] filter = new String[1];
+        filter[0] = "";
+        selectTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                filter[0] = selectTypeSpinner.getSelectedItem().toString().toLowerCase();
+                if (filter[0].equals("show all")) {
+                    filter[0] = "";
+                }
+                fetchValues(filter[0]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        fetchValues(filter[0]);
+        return view;
+    }
+
+    public void fetchValues(final String filter) {
         //adding an event listener to fetch values
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                uploads.clear();
                 //dismissing the progress dialog
                 progressDialog.dismiss();
 
                 //iterating through all the values in database
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
                     Upload upload = postSnapshot.getValue(Upload.class);
-                    uploads.add(upload);
+                    if(upload.getTags().contains(filter)) {
+                        uploads.add(upload);
+                    }
                 }
                 /*
                 Collections.sort(uploads, new Comparator<Upload>() {
@@ -142,7 +171,6 @@ public class ClosetFragment extends Fragment {
             }
         });
 
-        return view;
     }
 
     @OnClick(R.id.take_photo_fab)
@@ -157,7 +185,7 @@ public class ClosetFragment extends Fragment {
     }
 
     private void configureSpinnerUI() {
-        String[] selections = {"Show All", "Shirts", "Dresses", "Trousers", "Coats", "Shoes", "Accessories"};
+        String[] selections = {"Show All", "Shirt", "Dresses", "Trouser", "Coat", "Footwear", "Accessories"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_dropdown_menu, selections) {
 
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
