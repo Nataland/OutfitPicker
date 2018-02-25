@@ -22,7 +22,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ClothePhotoActivity" />
-        <activity android:name=".FirebaseUploadActivity" />
+        <activity android:name=".FirebaseUploadActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hackthevalley.outfitpicker.MainActivity" />
+        </activity>
         <activity android:name=".ShowImagesActivity"></activity>
     </application>
 
