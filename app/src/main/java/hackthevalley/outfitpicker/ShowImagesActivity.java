@@ -66,10 +66,16 @@ public class ShowImagesActivity extends AppCompatActivity {
                 //dismissing the progress dialog
                 progressDialog.dismiss();
 
+                uploads.clear();
                 //iterating through all the values in database
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Upload upload = postSnapshot.getValue(Upload.class);
                     uploads.add(upload);
+                }
+
+                ArrayList<String> urls = new ArrayList<>();
+                for (Upload upload: uploads) {
+                    urls.add(upload.getUrl());
                 }
 
                 Collections.sort(uploads, new Comparator<Upload>() {
@@ -80,7 +86,7 @@ public class ShowImagesActivity extends AppCompatActivity {
                 });
 
                 //creating adapter
-                adapter = new MyAdapter(getApplicationContext(), uploads);
+                //adapter = new MyAdapter(getApplicationContext(), urls);
 
                 //adding adapter to recyclerview
                 recyclerView.setAdapter(adapter);

@@ -17,6 +17,9 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by natalie on 2018-02-24.
  */
@@ -27,31 +30,20 @@ public class TinderCard {
     @View(R.id.outfit_items_container)
     private GridView outfitContainer;
 
-    @View(R.id.profileImageView)
-    private ImageView profileImageView;
-
-    @View(R.id.nameAgeTxt)
-    private TextView nameAgeTxt;
-
-    @View(R.id.locationNameTxt)
-    private TextView locationNameTxt;
-
-    private Profile mProfile;
     private Context mContext;
+    private ArrayList<String> outfitImages;
     private SwipePlaceHolderView mSwipeView;
 
-    public TinderCard(Context context, Profile profile, SwipePlaceHolderView swipeView) {
+
+    public TinderCard(Context context, ArrayList<String> outfit, SwipePlaceHolderView swipeView) {
         mContext = context;
-        mProfile = profile;
+        outfitImages = outfit;
         mSwipeView = swipeView;
     }
 
     @Resolve
     private void onResolved() {
-        Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
-        outfitContainer.setAdapter(new ImageAdapter(mContext));
-        nameAgeTxt.setText(mProfile.getName() + ", " + mProfile.getAge());
-        locationNameTxt.setText(mProfile.getLocation());
+        outfitContainer.setAdapter(new ImageOutfitMatcherAdapter(mContext, outfitImages));
     }
 
     @SwipeOut

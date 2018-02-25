@@ -1,11 +1,11 @@
 package hackthevalley.outfitpicker;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by fanychen on 2018-02-24.
  */
-
-import android.os.Parcel;
-import android.os.Parcelable;
 
 public class ClothePhoto implements Parcelable {
 
