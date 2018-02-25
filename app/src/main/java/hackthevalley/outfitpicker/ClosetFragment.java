@@ -45,7 +45,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-<<<<<<< HEAD
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -66,8 +65,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-=======
->>>>>>> 0b3d59eb410051560a7c22dd105803e4908a2a3a
 
 public class ClosetFragment extends Fragment {
     //recyclerview object
