@@ -92,8 +92,9 @@ public class ClosetFragment extends Fragment {
         takePhotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FirebaseUploadActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), FirebaseUploadActivity.class);
+//                startActivity(intent);
+                http();
             }
         });
         progressDialog = new ProgressDialog(getContext());
@@ -189,6 +190,9 @@ public class ClosetFragment extends Fragment {
 //                    }
 //                });
 //            }
+
+
+
             @Override public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
@@ -198,14 +202,22 @@ public class ClosetFragment extends Fragment {
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
                     Headers responseHeaders = response.headers();
-                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                        System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                    }
 
                     System.out.println(responseBody.string());
                 }
             }
         });
+
+//        try (Response response = client.newCall(request).execute()) {
+//            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+//
+//            Headers responseHeaders = response.headers();
+//            for (int i = 0; i < responseHeaders.size(); i++) {
+//                System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+//            }
+//
+//            System.out.println(response.body().string());
+//        }
     }
     static final int REQUEST_IMAGE_CAPTURE = 100;
 
