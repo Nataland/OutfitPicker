@@ -87,7 +87,7 @@ public class OutfitFragment extends Fragment {
                 case "trouser":
                     trousers.add(urls.get(i));
                     break;
-                case "shoe":
+                case "footwear":
                     shoes.add(urls.get(i));
                     break;
                 case "coat":
@@ -151,11 +151,11 @@ public class OutfitFragment extends Fragment {
                 case "shirt":
                     tag = "shirt";
                     break;
-                case "trouser":
+                case "trouser": case "jean": case "pant":
                     tag = "trouser";
                     break;
-                case "shoe":
-                    tag = "shoe";
+                case "shoe": case "footwear":
+                    tag = "footwear";
                     break;
                 case "coat":
                     tag = "coat";
