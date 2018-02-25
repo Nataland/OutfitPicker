@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,7 +37,6 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
     private Button buttonChoose;
     private Button buttonUpload;
     private EditText editTextName;
-    private TextView textViewShow;
     private ImageView imageView;
 
     //uri to store file
@@ -56,14 +55,12 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
         imageView = (ImageView) findViewById(R.id.imageView);
         editTextName = (EditText) findViewById(R.id.editText);
-        textViewShow = (TextView) findViewById(R.id.textViewShow);
 
         storageReference = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
 
         buttonChoose.setOnClickListener(this);
         buttonUpload.setOnClickListener(this);
-        textViewShow.setOnClickListener(this);
     }
 
     private void showFileChooser() {
@@ -144,18 +141,17 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
         }
     }
 
-    public void showUploads() {
-        Intent intent = new Intent(this, ShowImagesActivity.class);
-        startActivity(intent);
+    @Override
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
+        super.onSupportActionModeFinished(mode);
     }
+
     @Override
     public void onClick(View view) {
         if (view == buttonChoose) {
             showFileChooser();
         } else if (view == buttonUpload) {
             uploadFile();
-        } else if (view == textViewShow) {
-            showUploads();
         }
     }
 }
