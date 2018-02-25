@@ -10,6 +10,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="hackthevalley.outfitpicker.ShowImagesActivity">
 
+    <ImageView
+        android:id="@+id/imageCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/take_photo_fab"
         android:layout_width="wrap_content"
