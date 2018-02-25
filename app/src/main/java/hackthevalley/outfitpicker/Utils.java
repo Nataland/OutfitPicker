@@ -2,7 +2,6 @@ package hackthevalley.outfitpicker;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -23,17 +22,17 @@ public class Utils {
 
     private static final String TAG = "Utils";
 
-    public static List<Profile> loadProfiles(Context context){
+    public static List<Outfit> loadProfiles(Context context){
         try{
             GsonBuilder builder = new GsonBuilder();
             Gson gson = builder.create();
-            JSONArray array = new JSONArray(loadJSONFromAsset(context, "profiles.json"));
-            List<Profile> profileList = new ArrayList<>();
+            JSONArray array = new JSONArray(loadJSONFromAsset(context, "outfits.json"));
+            List<Outfit> outfitList = new ArrayList<>();
             for(int i=0;i<array.length();i++){
-                Profile profile = gson.fromJson(array.getString(i), Profile.class);
-                profileList.add(profile);
+                Outfit outfit = gson.fromJson(array.getString(i), Outfit.class);
+                outfitList.add(outfit);
             }
-            return profileList;
+            return outfitList;
         }catch (Exception e){
             e.printStackTrace();
             return null;
