@@ -86,7 +86,7 @@ public class ShowImagesActivity extends AppCompatActivity {
                 });
 
                 //creating adapter
-                adapter = new MyAdapter(getApplicationContext(), urls);
+                //adapter = new MyAdapter(getApplicationContext(), urls);
 
                 //adding adapter to recyclerview
                 recyclerView.setAdapter(adapter);
