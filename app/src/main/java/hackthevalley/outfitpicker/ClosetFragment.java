@@ -1,5 +1,7 @@
 package hackthevalley.outfitpicker;
 
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,10 +17,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,13 +42,23 @@ import okhttp3.Response;
 /**
  * Created by natalie on 2018-02-24.
  */
-
 public class ClosetFragment extends Fragment {
-    @BindView(R.id.add_more_items_floating_button)
-    FloatingActionButton addMoreButton;
+    //recyclerview object
+    private RecyclerView recyclerView;
 
-    @BindView(R.id.rv_images)
-    RecyclerView recyclerView;
+    //adapter object
+    private RecyclerView.Adapter adapter;
+
+    //database reference
+    private DatabaseReference mDatabase;
+
+    //progress dialog
+    private ProgressDialog progressDialog;
+
+    //list to hold all the uploaded images
+    private List<Upload> uploads;
+
+    private FloatingActionButton takePhotoBtn;
 
     @BindView(R.id.imageCamera)
     ImageView imageCamera;
@@ -45,26 +66,74 @@ public class ClosetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_closet, container, false);
-        ButterKnife.bind(this, view);
 
-        addMoreButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_a_photo_white_24dp));
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-        Log.d("", getActivity().toString());
-        Log.d("", "is it null?");
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        ImageGalleryAdapter adapter = new ImageGalleryAdapter(getActivity());
-        recyclerView.setAdapter(adapter);
+        takePhotoBtn = view.findViewById(R.id.take_photo_fab);
+        takePhotoBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_a_photo_white_24dp));
+        takePhotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FirebaseUploadActivity.class);
+                startActivity(intent);
+            }
+        });
+        progressDialog = new ProgressDialog(getContext());
+
+        uploads = new ArrayList<>();
+
+        //displaying progress dialog while fetching images
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+
+        //adding an event listener to fetch values
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //dismissing the progress dialog
+                progressDialog.dismiss();
+
+                //iterating through all the values in database
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Upload upload = postSnapshot.getValue(Upload.class);
+                    uploads.add(upload);
+                }
+
+                Collections.sort(uploads, new Comparator<Upload>() {
+                    @Override
+                    public int compare(final Upload object1, final Upload object2) {
+                        return object1.getName().compareTo(object2.getName());
+                    }
+                });
+
+                //creating adapter
+                adapter = new MyAdapter(getContext(), uploads);
+
+                //adding adapter to recyclerview
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
+            }
+        });
+
 
         return view;
+
     }
+
 
     private static final int TAKE_PICTURE = 1;
     private Uri imageUri;
 
-    @OnClick(R.id.add_more_items_floating_button)
+    @OnClick(R.id.take_photo_fab)
     void onShowClick(){
         http();
 //        takePhoto();
