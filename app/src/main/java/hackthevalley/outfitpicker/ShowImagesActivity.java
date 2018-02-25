@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ShowImagesActivity extends AppCompatActivity {
@@ -69,6 +71,14 @@ public class ShowImagesActivity extends AppCompatActivity {
                     Upload upload = postSnapshot.getValue(Upload.class);
                     uploads.add(upload);
                 }
+
+                Collections.sort(uploads, new Comparator<Upload>() {
+                    @Override
+                    public int compare(final Upload object1, final Upload object2) {
+                        return object1.getName().compareTo(object2.getName());
+                    }
+                });
+
                 //creating adapter
                 adapter = new MyAdapter(getApplicationContext(), uploads);
 
