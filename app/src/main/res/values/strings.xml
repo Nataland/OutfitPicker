@@ -5,13 +5,13 @@
     <string name="title_settings">Settings</string>
 
     <string-array name="name_array">
-        <item>--Choose your item--</item>
-        <item>Shirt</item>
-        <item>Dress</item>
-        <item>Trouser</item>
-        <item>Coat</item>
-        <item>Shoe</item>
-        <item>Accessory</item>
+        <item>Show All</item>
+        <item>Shirts</item>
+        <item>Dresses</item>
+        <item>Trousers</item>
+        <item>Coats</item>
+        <item>Shoes</item>
+        <item>Accessories</item>
     </string-array>
 
     <!-- Select image activity -->

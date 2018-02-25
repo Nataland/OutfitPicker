@@ -26,6 +26,7 @@ android {
 }
 
 repositories {
+    maven { url "https://jitpack.io" }
     mavenCentral() // jcenter() works as well because it pulls from Maven Central
 }
 
@@ -61,7 +62,8 @@ dependencies {
     compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.squareup.okhttp3:okhttp:3.9.1'
 
-
+    // Gallery picker
+    compile 'com.github.jrvansuita:PickImage:+'
 }
 
 

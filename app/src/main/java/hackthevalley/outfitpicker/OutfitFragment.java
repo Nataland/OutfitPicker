@@ -12,6 +12,7 @@ import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -134,6 +135,7 @@ public class OutfitFragment extends Fragment {
             }
         }
 
+        Collections.shuffle(deck);
         return deck;
     }
 }

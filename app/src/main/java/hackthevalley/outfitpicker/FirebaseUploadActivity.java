@@ -2,7 +2,6 @@ package hackthevalley.outfitpicker;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -34,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -44,7 +44,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class FirebaseUploadActivity extends AppCompatActivity implements View.OnClickListener{
+public class FirebaseUploadActivity extends AppCompatActivity implements View.OnClickListener {
 
     final String[] results = {""};
     private String uploadId;
@@ -113,7 +113,6 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
     }
 
 
-
     private void uploadFile() {
         //checking if file is available
         if (filePath != null) {
@@ -136,7 +135,7 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
                             //displaying success toast
                             Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
 
-                            String url =  taskSnapshot.getDownloadUrl().toString();
+                            String url = taskSnapshot.getDownloadUrl().toString();
 
                             //creating the upload object to store uploaded image details
                             upload = new Upload(editTextName.getText().toString().trim(), url, results[0]);
@@ -193,7 +192,7 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{\"url\":\"" + url+ "\"}");
+        RequestBody body = RequestBody.create(mediaType, "{\"url\":\"" + url + "\"}");
         Request request = new Request.Builder()
                 .url("https://eastus.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags&language=en")
                 .post(body)
@@ -241,7 +240,7 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject object = arr.getJSONObject(i);
                 String feature = object.getString("name");
-                if(i>0) {
+                if (i > 0) {
                     tags = tags + "," + feature;
                 } else {
                     tags = feature;
@@ -257,6 +256,7 @@ public class FirebaseUploadActivity extends AppCompatActivity implements View.On
         Log.d("tags ", tags);
         return tags;
     }
+
     @Override
     public void onSupportActionModeFinished(@NonNull ActionMode mode) {
         super.onSupportActionModeFinished(mode);

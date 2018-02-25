@@ -17,7 +17,7 @@ public class MyAndroidAppActivity extends Activity {
         addListenerOnSpinnerItemSelection();
     }
     public void addListenerOnSpinnerItemSelection() {
-        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        spinner1 = (Spinner) findViewById(R.id.select_clothing_type_spinner);
         spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 }
