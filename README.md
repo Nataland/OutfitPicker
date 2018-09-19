@@ -1,5 +1,6 @@
 # OutfitPicker
 
+### Intro
 Outfit Picker is an android app that matches your current clothes and gives you suggestions of what to wear, 
 
 saving you time and struggle every morning. After taking pics of your wardrobe, this smart app will show you
@@ -23,3 +24,7 @@ of our time. - Setting up the backend was an interesting challenge as none of us
 Future Features - User logins - Implement a share feature to let users share their outfit - Use machine learning to 
 
 get insights from users fashion choice - Monetization of the app by letting brand sponsor outfit (ad)
+
+### Demo
+![alt text](https://github.com/Nataland/OutfitPicker/blob/master/demo/upload.gif "Uploading clothing items")
+![alt text](https://github.com/Nataland/OutfitPicker/blob/master/demo/swipe.gif "Matching outfits")
